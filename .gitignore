@@ -1,6 +1,6 @@
 # Created by https://www.gitignore.io/api/go,intellij,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=go,intellij,visualstudiocode
-
+settings.yaml
 ### Go ###
 # Binaries for programs and plugins
 *.exe

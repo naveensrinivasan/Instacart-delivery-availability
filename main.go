@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/jasonlvhit/gocron"
 	"github.com/jinzhu/configor"
 	"github.com/naveensrinivasan/instacart-delivery-availability/pkg/instacart"
 )
@@ -25,6 +26,13 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	gocron.Every(5).Minutes().Do(checkAvailability, config, i)
+
+	<-gocron.Start()
+}
+
+func checkAvailability(config configuration, i instacart.Instacart) {
 	for _, store := range config.Stores {
 		result, err := i.DeliveryAvailable(store)
 		if err != nil {
