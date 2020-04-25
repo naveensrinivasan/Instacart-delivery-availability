@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"os/exec"
 
 	"github.com/jasonlvhit/gocron"
 	"github.com/jinzhu/configor"
@@ -10,9 +11,10 @@ import (
 )
 
 type configuration struct {
-	Email    string
-	Password string
-	Stores   []string
+	Email        string
+	Password     string
+	Stores       []string
+	Notification string
 }
 
 func main() {
@@ -27,7 +29,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	gocron.Every(5).Minutes().Do(checkAvailability, config, i)
+	gocron.Every(1).Minutes().Do(checkAvailability, config, i)
 
 	<-gocron.Start()
 }
@@ -39,7 +41,15 @@ func checkAvailability(config configuration, i instacart.Instacart) {
 			log.Fatal(err)
 		}
 		if result {
-			fmt.Println(fmt.Sprintf("There are delivery slots available %s", store))
+			m := fmt.Sprintf("There are delivery slots available %s", store)
+			fmt.Println(m)
+			sendIMessage(config.Notification, m)
 		}
 	}
+}
+
+func sendIMessage(number, message string) error {
+	cmd := exec.Command("osascript", "sendMessage.applescript", number, message)
+	err := cmd.Run()
+	return err
 }

@@ -4,3 +4,4 @@ password: instacart password
 stores:    # stores to look for delivery availability
   - costco
   - harris-teeter
+notification: 12334567890

@@ -1,6 +1,6 @@
 # Created by https://www.gitignore.io/api/go,intellij,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=go,intellij,visualstudiocode
-settings.yaml
+settings.prod.yaml
 ### Go ###
 # Binaries for programs and plugins
 *.exe
@@ -123,3 +123,4 @@ fabric.properties
 .history
 
 # End of https://www.gitignore.io/api/go,intellij,visualstudiocode
+
